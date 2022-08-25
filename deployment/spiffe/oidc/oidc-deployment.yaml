@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spire-oidc-provider
-  namespace: spire
+  namespace: oidc
   labels:
     app: spire-oidc-provider
 spec:
@@ -12,23 +12,22 @@ spec:
       app: spire-oidc-provider
   template:
     metadata:
-      namespace: spire
+      namespace: oidc
       labels:
         app: spire-oidc-provider
     spec:
       serviceAccountName: spire-oidc
       containers:
         - name: spire-oidc
-          image: gcr.io/spiffe-io/oidc-discovery-provider:nightly
+          image: gcr.io/spiffe-io/oidc-discovery-provider:1.4.0
           args:
           - -config
           - /run/spire/oidc/config/oidc-discovery-provider.conf
           ports:
           - containerPort: 443
-            name: spire-oidc-port
           volumeMounts:
           - name: spire-agent-socket
-            mountPath: /run/spire/sockets
+            mountPath: /run/azedge/sockets
             readOnly: true
           - name: spire-oidc-config
             mountPath: /run/spire/oidc/config/
@@ -41,7 +40,7 @@ spec:
       volumes:
         - name: spire-agent-socket
           hostPath:
-            path: /run/spire/sockets
+            path: /run/azedge/sockets
             type: DirectoryOrCreate
         - name: spire-oidc-config
           configMap:

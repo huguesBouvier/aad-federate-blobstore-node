@@ -2,4 +2,4 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: spire-oidc
-  namespace: spire
+  namespace: oidc
