@@ -60,7 +60,6 @@ switch (whereRunning) {
         federatedCredential = credential = new spiffeCredential(clientID,
                                                                 tenantID,
                                                                 authority);
-        federatedCredential.getFederatedToken();
         break;
         
   
@@ -79,20 +78,16 @@ var blobAccount:any = 'spiffefederate';
 
 var blob = new BlobStore(blobAccount, credential);
 
-app.get('/:container/:name', (req:any, res:any) => {
-    let blobName = req.params.name;
-    let containerName = req.params.container;
-    return blob.getEntity(containerName, blobName)
+let blobName = 'test';
+let containerName = 'helloworld';
+blob.getEntity(containerName, blobName)
     .then(function(data:any) {
-        res.send(data);
         logger.debug("get returned %o", data);
     })
     .catch(function(error:any) {
         logHelper.logger.error("app get error %o", error);
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
-
     });
-});
+
 
 app.post('/:container/:name', (req:any, res:any) => {
     let blobName = req.params.name;
