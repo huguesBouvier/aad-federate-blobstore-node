@@ -60,6 +60,7 @@ switch (whereRunning) {
         federatedCredential = credential = new spiffeCredential(clientID,
                                                                 tenantID,
                                                                 authority);
+        federatedCredential.getFederatedToken();
         break;
         
   
