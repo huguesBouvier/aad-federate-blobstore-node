@@ -30,7 +30,7 @@ var credential:any = null;
 
 var clientID:any = 'a556fd84-d997-4cae-bea4-4839d0148ba5';
 var tenantID:any = '3e235bd6-f0f9-4960-9124-f6beb8b6c288';
-var authority:any = 'test';
+var authority:any = '';
 
 switch (whereRunning) {
     case 'Google':

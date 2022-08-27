@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: spire-oidc
-  namespace: oidc
+  namespace: spire
 spec:
   type: NodePort
   selector:

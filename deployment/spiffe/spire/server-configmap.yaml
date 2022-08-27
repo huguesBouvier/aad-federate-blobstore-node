@@ -6,30 +6,15 @@ metadata:
 data:
   server.conf: |
     server {
+      jwt_issuer = "https://spiffe-aad.eastus.cloudapp.azure.com"
       bind_address = "0.0.0.0"
       bind_port = "8081"
       socket_path = "/tmp/spire-server/private/api.sock"
       trust_domain = "example.org"
       data_dir = "/run/spire/data"
       log_level = "DEBUG"
-      
-      experimental {
-        // Turns on the bundle endpoint (required, true)
-        bundle_endpoint_enabled = true
-
-        // The address to listen on (optional, defaults to 0.0.0.0)
-        // bundle_endpoint_address = "0.0.0.0"
-
-        // The port to listen on (optional, defaults to 443)
-        bundle_endpoint_port = 8443
-      }
-
-      # Creates the iss claim in JWT-SVIDs.
-      # TODO: Replace MY_DISCOVERY_DOMAIN with the FQDN of the Discovery Provider that you will configure in DNS
-      jwt_issuer = "https://demo-oidc.identitydigest.com"
-
+      #AWS requires the use of RSA.  EC cryptography is not supported
       ca_key_type = "rsa-2048"
-
       default_svid_ttl = "1h"
       ca_subject = {
         country = ["US"],
@@ -37,7 +22,6 @@ data:
         common_name = "",
       }
     }
-
     plugins {
       DataStore "sql" {
         plugin_data {
@@ -45,36 +29,27 @@ data:
           connection_string = "/run/spire/data/datastore.sqlite3"
         }
       }
-
       NodeAttestor "k8s_sat" {
         plugin_data {
           clusters = {
-            # TODO: Change this to your cluster name
-            #"demo-cluster" = {
-            "spire1" = {
-              use_token_review_api_validation = true
-              service_account_allow_list = ["spire:spire-agent"]
-            }
-            "spire2" = {
+            # NOTE: Change this to your cluster name
+            "demo-cluster" = {
               use_token_review_api_validation = true
               service_account_allow_list = ["spire:spire-agent"]
             }
           }
         }
       }
-
       KeyManager "disk" {
         plugin_data {
           keys_path = "/run/spire/data/keys.json"
         }
       }
-
       Notifier "k8sbundle" {
         plugin_data {
         }
       }
     }
-
     health_checks {
       listener_enabled = true
       bind_address = "0.0.0.0"

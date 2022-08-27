@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spire-oidc-provider
-  namespace: oidc
+  namespace: spire
   labels:
     app: spire-oidc-provider
 spec:
@@ -12,7 +12,7 @@ spec:
       app: spire-oidc-provider
   template:
     metadata:
-      namespace: oidc
+      namespace: spire
       labels:
         app: spire-oidc-provider
     spec:
@@ -27,7 +27,7 @@ spec:
           - containerPort: 443
           volumeMounts:
           - name: spire-agent-socket
-            mountPath: /run/azedge/sockets
+            mountPath: /run/spire/sockets
             readOnly: true
           - name: spire-oidc-config
             mountPath: /run/spire/oidc/config/
@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: spire-agent-socket
           hostPath:
-            path: /run/azedge/sockets
+            path: /run/spire/sockets
             type: DirectoryOrCreate
         - name: spire-oidc-config
           configMap:
