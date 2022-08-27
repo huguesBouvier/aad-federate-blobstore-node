@@ -23,7 +23,7 @@ class spiffeCredential extends FederatedTokenBaseClass {
 
         this.grpcClient = new spiffeProto.SpiffeWorkloadAPI('unix:///run/azedge/sockets/workloadapi.sock', grpc.credentials.createInsecure());
     
-        logger.debug("spiffe done with client %o", this.grpcClient);
+        logger.info("spiffe done with client %o", this.grpcClient);
     }
 
     async getFederatedToken() {
@@ -37,7 +37,7 @@ class spiffeCredential extends FederatedTokenBaseClass {
                     reject(err);
                 }
                 else {
-                    logger.debug("spiffe token is %o", message);
+                    logger.info("spiffe token is %o", message);
                     resolve(message.svids[0].svid);
                 }   
             });
