@@ -21,7 +21,7 @@ class spiffeCredential extends FederatedTokenBaseClass {
 
         const spiffeProto = grpc.loadPackageDefinition(workloadApiDef);
 
-        this.grpcClient = new spiffeProto.SpiffeWorkloadAPI('unix:///run/spire/sockets/agent.sock', grpc.credentials.createInsecure());
+        this.grpcClient = new spiffeProto.SpiffeWorkloadAPI('unix:///run/azedge/sockets/workloadapi.sock', grpc.credentials.createInsecure());
     
         logger.debug("spiffe done with client %o", this.grpcClient);
     }

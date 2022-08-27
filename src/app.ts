@@ -27,12 +27,12 @@ logHelper.init(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-var whereRunning:any = process.env.FEDERATED_ENVIRONMENT;
+var whereRunning:any = 'spiffe';
 var federatedCredential:any = null;
 var credential:any = null;
 
-var clientID:any = process.env.AZURE_CLIENT_ID;
-var tenantID:any = process.env.AZURE_TENANT_ID;
+var clientID:any = 'a556fd84-d997-4cae-bea4-4839d0148ba5';
+var tenantID:any = '3e235bd6-f0f9-4960-9124-f6beb8b6c288';
 var authority:any = process.env.AAD_AUTHORITY;
 
 switch (whereRunning) {
