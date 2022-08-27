@@ -82,12 +82,12 @@ let blobName = 'test';
 let containerName = 'helloworld';
 blob.getEntity(containerName, blobName)
     .then(function(data:any) {
-        logger.debug("get returned %o", data);
+        logger.info("get returned %o", data);
     })
     .catch(function(error:any) {
         logHelper.logger.error("app get error %o", error);
     });
-
+logger.info("Completed");
 
 app.post('/:container/:name', (req:any, res:any) => {
     let blobName = req.params.name;
