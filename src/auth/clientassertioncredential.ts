@@ -19,7 +19,7 @@ class ClientAssertionCredential implements TokenCredential {
     
     async getToken(scope: string | string[], _options?: GetTokenOptions):Promise<AccessToken> {
 
-        logger.debug("Client assertion cred, getToken called");
+        logger.info("Client assertion cred, getToken called");
         var scopes:string[] = [];
 
         if (Array.isArray(scope)) {
@@ -35,7 +35,7 @@ class ClientAssertionCredential implements TokenCredential {
         return this.federatedToken.getFederatedToken()
         //now pass this as a client assertion to the confidential client app
         .then((clientAssertion:any)=> {
-            logger.debug("client assertion cred, got federated token %o", clientAssertion);
+            logger.info("client assertion cred, got federated token %o", clientAssertion);
             var msalApp: any;
             msalApp = new msal.ConfidentialClientApplication({
                 auth: {
@@ -50,7 +50,7 @@ class ClientAssertionCredential implements TokenCredential {
         // we should have the AAD token, return the pieces that are relevant... why is this needed?
         //
         .then(function(aadToken) {
-            logger.debug("client assertion cred, got AAD token %o", aadToken);        
+            logger.info("client assertion cred, got AAD token %o", aadToken);        
             let returnToken = {
                 token: aadToken.accessToken,
                 expiresOnTimestamp: aadToken.expiresOn.getTime(),
