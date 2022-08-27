@@ -12,10 +12,7 @@ import { DefaultAzureCredential, EnvironmentCredential } from "@azure/identity";
 
 const logger = logHelper.logger;
 
-
-require('dotenv-safe').config();
-
-var port = process.env.PORT || 3001;
+var port = 3001;
 
 var app = express();
 //
@@ -33,7 +30,7 @@ var credential:any = null;
 
 var clientID:any = 'a556fd84-d997-4cae-bea4-4839d0148ba5';
 var tenantID:any = '3e235bd6-f0f9-4960-9124-f6beb8b6c288';
-var authority:any = process.env.AAD_AUTHORITY;
+var authority:any = '';
 
 switch (whereRunning) {
     case 'Google':
@@ -77,7 +74,7 @@ switch (whereRunning) {
 
 }
 logger.info("initialize store with cred %o", credential);                                        
-var blobAccount:any = process.env.BLOB_STORE_ACCOUNT;
+var blobAccount:any = 'spiffefederate';
 
 var blob = new BlobStore(blobAccount, credential);
 
